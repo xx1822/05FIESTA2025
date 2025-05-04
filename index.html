@@ -3,345 +3,1631 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>'05 FIESTA</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="shortcut icon" href="assets/LOGOFIESTA.png" type="image/x-icon">
+    <style>
+        :root {
+            --primary: #1a2a6c;
+            --secondary: #b21f1f;
+            --accent: #fdbb2d;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --transition: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+        }
 
-    <!-- --------- UNICONS ---------- -->
-    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    <!-- --------- CSS ---------- -->
-    <link rel="stylesheet" href="style.css">
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light);
+            overflow-x: hidden;
+        }
 
-    <!-- --------- FAVICON ---------- -->
-    <link rel="shortcut icon" href="assets/LOGO.png" type="image/x-icon">
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1rem 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
 
-    <title>'05 FIESTA 2025</title>
+        .header-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .logo {
+            width: 120px;
+            height: 120px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+            transition: var(--transition);
+            border: 4px solid var(--accent);
+        }
+
+        .logo:hover {
+            transform: scale(1.05) rotate(5deg);
+        }
+
+        .logo img {
+            width: 80%;
+            height: auto;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(to right, var(--accent), white);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            transition: var(--transition);
+        }
+
+        h1:hover {
+            letter-spacing: 2px;
+        }
+
+        .header-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('assets/BGVENUE.webp') center/cover no-repeat;
+            opacity: 0.2;
+            z-index: 1;
+        }
+
+        /* Navigation */
+        nav {
+            background-color: rgba(0, 0, 0, 0.8);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+
+        .nav-logo {
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-logo i {
+            margin-right: 0.5rem;
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 1.5rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: var(--transition);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 4rem 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 2rem;
+            color: var(--primary);
+            display: inline-block;
+            padding-bottom: 0.5rem;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            border-radius: 2px;
+        }
+
+        /* About Tournament */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .about-text {
+            padding-right: 1rem;
+	    text-align: justify;
+        }
+
+        .about-image {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+
+        .about-image:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Organizers Section */
+        .organizers {
+            background-color: #f1f3f5;
+        }
+
+        .org-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .org-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+
+        .org-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Replace the existing .org-icon styles with this: */
+.org-logo {
+    height: 80px;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.org-logo img {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+}
+
+        .org-card h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Sponsors Section */
+        /* Sponsors Section Styles */
+.sponsors-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.sponsor-item {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: var(--transition);
+    flex: 1 1 200px;
+    max-width: 250px;
+    text-align: center;
+}
+
+.sponsor-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.sponsor-logo {
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.sponsor-logo img {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+    filter: grayscale(100%);
+    transition: var(--transition);
+}
+
+.sponsor-item:hover img {
+    filter: grayscale(0%);
+}
+
+.sponsor-item h3 {
+    color: var(--primary);
+    margin-top: 0.5rem;
+    font-size: 1.1rem;
+}
+
+        /* Media Gallery */
+        .gallery {
+            padding: 4rem 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2rem;
+            color: var(--primary);
+            display: inline-block;
+            padding-bottom: 0.5rem;
+            position: relative;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            border-radius: 2px;
+        }
+
+        .gallery-main {
+            max-width: 900px;
+            margin: 0 auto 2rem;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+            position: relative;
+            aspect-ratio: 16/9;
+        }
+
+        .active-slide {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .slide-image, .slide-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: opacity 0.5s ease;
+        }
+
+        .slide-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            color: white;
+            padding: 1.5rem;
+            z-index: 2;
+        }
+
+        .gallery-thumbnails {
+            display: none;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .thumb {
+            width: 100px;
+            height: 70px;
+            border-radius: 4px;
+            overflow: hidden;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .thumb:hover, .thumb.active {
+            opacity: 1;
+            border-color: var(--accent);
+        }
+
+        .thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Teams Section */
+        .teams-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .team-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .team-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .team-logo {
+            width: 100px;
+            height: 100px;
+            margin: 1.5rem auto;
+            background-color: #FFFFFF;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 3px solid var(--primary);
+        }
+
+        .team-logo img {
+            width: 70%;
+            height: auto;
+        }
+
+        .team-info {
+            padding: 1.5rem;
+        }
+
+        .team-info h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .team-info p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Committee Section */
+        .committee {
+            background-color: #f1f3f5;
+        }
+
+        .committee-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .member-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .member-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .member-image {
+            width: 100%;
+            height: 230px;
+            overflow: hidden;
+        }
+
+        .member-image img {
+            width: 90%;
+            height: 100%;
+            object-fit: cover;
+	    object-position: top;
+            transition: var(--transition);
+        }
+
+        .member-card:hover .member-image img {
+            transform: scale(1.1);
+        }
+
+        .member-info {
+            padding: 1.5rem;
+        }
+
+        .member-info h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .member-info p {
+            color: var(--secondary);
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            color: var(--dark);
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Contact Section */
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .contact-icon {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .contact-text h3 {
+            color: var(--primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .contact-text p, .contact-text a {
+            color: #666;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .contact-text a:hover {
+            color: var(--primary);
+        }
+
+        .contact-form {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: inherit;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(26, 42, 108, 0.1);
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-block;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, var(--primary), var(--dark));
+            color: white;
+            padding: 3rem 1rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            text-align: left;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .footer-logo i {
+            margin-right: 0.5rem;
+            color: var(--accent);
+        }
+
+        .footer-about p {
+            margin-bottom: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .footer-links h3, .footer-contact h3 {
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+            padding-left: 5px;
+        }
+
+        .footer-contact p {
+            margin-bottom: 0.5rem;
+            color: rgba(255, 255, 255, 0.8);
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+
+        .footer-contact i {
+            color: var(--accent);
+            margin-top: 3px;
+        }
+
+        .social-links-footer {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links-footer a {
+            color: white;
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+
+        .social-links-footer a:hover {
+            color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            z-index: 99;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-to-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 1s ease forwards;
+        }
+
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+        .delay-4 { animation-delay: 0.8s; }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .about-text {
+                padding-right: 0;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background-color: rgba(0, 0, 0, 0.9);
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 2rem;
+                transition: var(--transition);
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .nav-links li {
+                margin: 1rem 0;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+	    .gallery-main {
+                aspect-ratio: 16/9;
+            }
+            
+            .thumb {
+                width: 80px;
+                height: 56px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            section {
+                padding: 3rem 1rem;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .logo {
+                width: 100px;
+                height: 100px;
+            }
+        }
+    </style>
 </head>
 <body>
-   <div class="container">
-    <!-- --------------- HEADER --------------- -->
-      <nav id="header">
-	<img src="assets/LOGO.png" alt="avatar">
-        <div class="nav-logo">
-            <!--<p class="nav-name">'05 FIESTA</p>-->
+    <!-- Header with Logo and Title -->
+    <header>
+        <div class="header-bg"></div>
+        <div class="header-content">
+            <div class="logo">
+                <img src="assets/LOGOFIESTA.png" alt="Tournament Logo">
+            </div>
+            <h1 class="fade-in">'05 FOOTBALL FIESTA 2025</h1>
+            <p class="fade-in delay-1">'05 FIESTA is more than just a tournament, it's a celebration of the sport we love!</p>
+            <p class="fade-in delay-2">May 24-25, 2025 • AG Sports Arena</p>
         </div>
-        <div class="nav-menu" id="myNavMenu">
-            <ul class="nav_menu_list">
-                <li class="nav_list">
-                    <a href="#home" class="nav-link active-link">Home</a>
-                    <div class="circle"></div>
-                </li>
-                <li class="nav_list">
-                    <a href="#about" class="nav-link">Overview</a>
-                    <div class="circle"></div>
-                </li>
-		<li class="nav_list">
-                    <a href="#teams" class="nav-link">Teams</a>
-                    <div class="circle"></div>
-                </li>
-                <li class="nav_list">
-                    <a href="#projects" class="nav-link">Committee</a>
-                    <div class="circle"></div>
-                </li>
-		<li class="nav_list">
-                    <a href="#contact" class="nav-link">HELLO</a>
-                    <div class="circle"></div>
-                </li>
+    </header>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-futbol"></i>
+                <span>'05 FIESTA</span>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#about">About</a></li>
+                <li><a href="#organizers">Organizers</a></li>
+                <li><a href="#sponsors">Sponsors</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#teams">Teams</a></li>
+                <li><a href="#committee">Committee</a></li>
+                <li><a href="#contact">Contact</a></li>
             </ul>
         </div>
-        <!--<div class="nav-button">
-            <button class="btn">Fixtures<i class="uil uil-file-alt"></i></button>
-        </div>-->
-        <div class="nav-menu-btn">
-            <i class="uil uil-bars" onclick="myMenuFunction()"></i>
+    </nav>
+
+    <!-- Championship Info -->
+    <section id="about">
+        <div class="section-title">
+            <h2>Championship Info</h2>
         </div>
-      </nav>
+        <div class="about-content">
+            <div class="about-text fade-in">
+                <p>The ‘05 FOOTBALL FIESTA 2025 is set to make history as an exclusive football tournament for alumni of Sekolah Berasrama Penuh (SBP) and Maktab Rendah Sains Mara (MRSM) born in 2005. Organized by Xanthrons under SASEROBA (SASER Alumni Association), this inaugural event is more than just a competition—it’s a symbol of unity, sportsmanship, and the legacy of Malaysia’s top institutions.</p>
+                <p>Supported by the Selangor State Government through Y.B. Mohd Najwan bin Halimi, Exco for Youth, Sports, and Entrepreneurship, the tournament is expected to attract hundreds of participants and thousands of spectators, including alumni and the local community. With participation exclusive to 2005-born alumni, this event also provides a unique opportunity for sponsors to engage with ambitious and talented youth—the future leaders of Malaysia.</p>
+                <p>SASEROBA, established on October 11, 2016, has united nearly 1,000 SASER alumni, making it a prestigious platform for networking, sports, and leadership development. Through this tournament, we aim to promote a healthy lifestyle, foster sportsmanship, and instill positive values that extend beyond the football field. Our goal is clear: to establish ‘05 FOOTBALL FIESTA 2025 as an iconic football event that creates a lasting impact on the community while elevating sponsors' brands among sports fans and the youth of Malaysia. 🚀⚽</p>
+            </div>
+            <div class="about-image fade-in delay-1">
+                <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Football Stadium">
+            </div>
+        </div>
+    </section>
 
+    <!-- Organizers Section -->
+<section id="organizers" class="organizers">
+    <div class="section-title">
+        <h2>Organized & Supported By</h2>
+    </div>
+    <div class="org-grid">
+        <!-- Organization 1 -->
+        <div class="org-card fade-in">
+            <div class="org-logo">
+                <img src="assets/LOGOXX.png" alt="LogoXX">
+		<img src="assets/LOGOSASEROBA.png" alt="LogoSASEROBA">
+            </div>
+            <h3>Xanthrons (SASEROBA)</h3>
+            <p>Official Organiser</p>
+	    <p>(20th Batch of SASEROBA)</p>
+        </div>
 
-    <!-- -------------- MAIN ---------------- -->
-    <main class="wrapper">
-       <!-- -------------- FEATURED BOX ---------------- -->
-       <section class="featured-box" id="home">
-          <div class="featured-text">
-            <div class="featured-text-card">
-                <span>FOOTBALL FIESTA</span>
+        <!-- Organization 2 -->
+        <div class="org-card fade-in delay-1">
+            <div class="org-logo">
+                <img src="assets/JATASELANGOR.gif" alt="JataSelangor">
             </div>
-            <div class="featured-name">
-                <p>Welcome <span class="typedText"></span></p>
-            </div>
-            <div class="featured-text-info">
-                <p>A festival of goals, teamwork, and passion—05 Football Fiesta is more than just a tournament, it's a celebration of the sport we love!
-                </p>
-            </div>
-            <div class="featured-text-btn">
-                <a href="standA.html" class="btn blue-btn">Standings</a>
-                <button class="btn">Fixtures<i class="uil uil-file-alt"></i></button>
-            </div>
-            <div class="social_icons">
-                <div class="icon"><i class="uil uil-instagram"></i></div>
-                <div class="icon"><i class="uil uil-facebook"></i></div>
-                <div class="icon"><i class="uil uil-youtube"></i></div>
-            </div>
-          </div>
-          <div class="featured-image">
-            <div class="image">
-                <img src="assets/LOGO.png" alt="avatar">
-            </div>
-          </div>
-       </section>
+            <h3>EXCO Belia, Sukan dan Keusahawanan Negeri Selangor</h3>
+            <p>Spearheading sports and youth entrepreneurial growth in Selangor.</p>
+        </div>
 
-       <!-- ---------------- GALLERY ------------------ -->
-	<!--<section class="gallery-section">
-    	    <div class="slideshow-container">
-    		<div class="slide fade">
-	        <img src="assets/YB.png" alt="Image 1">
-		</div>
-		<div class="slide fade">
-                <img src="assets/BG.jfif" alt="Image 2">
+        <!-- Organization 3 -->
+        <div class="org-card fade-in delay-2">
+            <div class="org-logo">
+                <img src="assets/LOGORAKSASER.png" alt="LogoRAKSASER">
+            </div>
+            <h3><a href="https://raksaser.com">RAKSASER</a></h3>
+            <p>Official 7th Batch of SASEROBA</p>
+        </div>
+    </div>
+</section>
+
+    <!-- Sponsors Section -->
+<section id="sponsors">
+    <div class="section-title">
+        <h2>Sponsored By</h2>
+    </div>
+    <div class="sponsors-container">
+        <!-- Sponsor 1 -->
+        <div class="sponsor-item fade-in">
+            <div class="sponsor-logo">
+                <img src="assets/LOGOAG.png" alt="LogoAG">
+            </div>
+            <h3>Official Venue Sponsor</h3>
+	    <h3><a href="https://agsportsarena.com.my">(AG Sports Arena)</a></h3>
+        </div>
+
+        <!-- Sponsor 2 -->
+        <div class="sponsor-item fade-in delay-1">
+            <div class="sponsor-logo">
+                <img src="assets/LOGODEECLO.png" alt="LogoDEECLO">
+            </div>
+            <h3>Official Main Sponsor</h3>
+	    <h3><a href="https://deeclo.my">(DEECLO)</a></h3>
+        </div>
+
+    </div>
+</section>
+
+    <!-- Media Gallery Section -->
+<section id="gallery" class="gallery">
+        <div class="section-title">
+            <h2>Gallery</h2>
+        </div>
+        
+        <!-- Main Slideshow Container -->
+        <div class="gallery-main">
+            <div class="active-slide">
+                <img src="" class="slide-image">
+                <video class="slide-video" style="display:none;">
+                    <source src="" type="video/mp4">
+                </video>
+                <div class="slide-caption">
+                    <h3></h3>
+                    <p></p>
                 </div>
-                <div class="slide fade">
-                <img src="assets/YB.png" alt="Image 3">
+            </div>
+        </div>
+
+        <!-- Thumbnail Navigation -->
+        <div class="gallery-thumbnails">
+            <div class="thumb active" data-type="image" data-src="assets/BGVENUE.webp" data-caption="AG Sports Arena|Conquer the Ground">
+                <img src="" alt="Action shot">
+            </div>
+            <div class="thumb" data-type="video" data-src="assets/ADS1.mp4" data-caption="DEECLO|Authenticity in Every Stitch">
+                <img src="" alt="Video thumbnail">
+            </div>
+	    <div class="thumb" data-type="video" data-src="assets/ADS2.mp4" data-caption="DEECLO|Empowering creativity, one stitch at a time.">
+                <img src="" alt="Video thumbnail">
+            </div>
+            <div class="thumb" data-type="image" data-src="https://images.unsplash.com/photo-1579952363872-3f0869e09d59?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" data-caption="Celebration|Winning moments">
+                <img src="" alt="Celebration">
+            </div>
+        </div>
+    </section>
+
+    <!-- Teams Section -->
+    <section id="teams">
+        <div class="section-title">
+            <h2>Participating Teams</h2>
+        </div>
+        <div class="teams-container">
+            <div class="team-card fade-in">
+                <div class="team-logo">
+                    <img src="assets/LOGOFELDA.png" alt="Team Logo">
                 </div>
-                <div class="slide fade">
-                <img src="assets/GLOBAL.jpg" alt="Image 4">
+                <div class="team-info">
+                    <h3>PABLO FC</h3>
+                    <p>MRSM Felda Trolak</p>
+                    <p>IG: @fc.pabloo</p>
                 </div>
             </div>
-       </section>-->
-       <!-- -------------- ABOUT BOX ---------------- -->
-       <section class="section" id="about">
-          <div class="top-header">
-            <h1>Championship Info</h1>
-          </div>
-          <div class="row">
-            <div class="col">
-                <div class="about-info">
-                    <h3>⚽ ‘05 FOOTBALL FIESTA 2025 🏆</h3>
-                    <p>  The ‘05 FOOTBALL FIESTA 2025 is set to make history as an exclusive football tournament for alumni of Sekolah Berasrama Penuh (SBP) and Maktab Rendah Sains Mara (MRSM) born in 2005. Organized by Xanthrons under SASEROBA (SASER Alumni Association), this inaugural event is more than just a competition—it’s a symbol of unity, sportsmanship, and the legacy of Malaysia’s top institutions.  
+            <div class="team-card fade-in delay-1">
+                <div class="team-logo">
+                    <img src="assets/LOGOSUPERB.jpg" alt="Team Logo">
+                </div>
+                <div class="team-info">
+                    <h3>MAGNUS FT</h3>
+                    <p>SMAP Bentong</p>
+                    <p>IG: @ft.magnus</p>
+                </div>
+            </div>
+            <div class="team-card fade-in delay-2">
+                <div class="team-logo">
+                    <img src="assets/LOGOSTAR.jpg" alt="Team Logo">
+                </div>
+                <div class="team-info">
+                    <h3>LXII BROS</h3>
+                    <p>Sekolah Tuanku Abdul Rahman</p>
+                    <p>IG: @lxiibros</p>
+                </div>
+            </div>
+            <div class="team-card fade-in delay-3">
+                <div class="team-logo">
+                    <img src="assets/LOGOIGOP.png" alt="Team Logo">
+                </div>
+                <div class="team-info">
+                    <h3>INFORTAL FC</h3>
+                    <p>SBPI Gopeng</p>
+                    <p>IG: @infortalfc</p>
+                </div>
+            </div>
+            <div class="team-card fade-in">
+                <div class="team-logo">
+                    <img src="assets/LOGOSTJ.png" alt="Team Logo">
+                </div>
+                <div class="team-info">
+                    <h3>FORTESS FC</h3>
+                    <p>SMS Tuanku Jaafar</p>
+                    <p>IG: @</p>
+                </div>
+            </div>
+            <div class="team-card fade-in delay-1">
+                <div class="team-logo">
+                    <img src="assets/LOGOKISAS.png" alt="Team Logo">
+                </div>
+                <div class="team-info">
+                    <h3>ARCEUSS FC</h3>
+                    <p>Kolej Islam Sultan Alam Shah</p>
+                    <p>IG: @arceuss_fc</p>
+                </div>
+            </div>
+            <div class="team-card fade-in delay-2">
+                <div class="team-logo">
+                    <img src="assets/LOGOSASER.png" alt="Team Logo">
+                </div>
+                <div class="team-info">
+                    <h3>XANTHRONS FC</h3>
+                    <p>SMS Tuanku Munawir</p>
+                    <p>IG: @xxbros_</p>
+                </div>
+            </div>
+            <div class="team-card fade-in delay-3">
+                <div class="team-logo">
+                    <img src="assets/LOGOSAS.jpg" alt="Team Logo">
+                </div>
+                <div class="team-info">
+                    <h3>MARSHALS FC</h3>
+                    <p>Sekolah Sultan Alam Shah</p>
+                    <p>IG: @marshalsfc_</p>
+                </div>
+            </div>
+	    <div class="team-card fade-in">
+                <div class="team-logo">
+                    <img src="assets/LOGOSEMASHUR.png" alt="Team Logo">
+                </div>
+                <div class="team-info">
+                    <h3>LEGACY FC</h3>
+                    <p>SMS Hulu Selangor</p>
+                    <p>IG: @leg4cy.fc</p>
+                </div>
+            </div>
+            <div class="team-card fade-in delay-1">
+                <div class="team-logo">
+                    <img src="assets/.png" alt="">
+                </div>
+                <div class="team-info">
+                    <h3>TBA</h3>
+                    <p>SMAP Kajang</p>
+                    <p>IG: @</p>
+                </div>
+            </div>
+            <div class="team-card fade-in delay-2">
+                <div class="team-logo">
+                    <img src="assets/LOGOKUKLA.png" alt="Team Logo">
+                </div>
+                <div class="team-info">
+                    <h3>KK OLD BOYS FC</h3>
+                    <p>MRSM Kuala Klawang</p>
+                    <p>IG: @kkoldboysfc</p>
+                </div>
+            </div>
+            <div class="team-card fade-in delay-3">
+                <div class="team-logo">
+                    <img src="assets/LOGOPC.png" alt="Team Logo">
+                </div>
+                <div class="team-info">
+                    <h3>PC NATION</h3>
+                    <p>MRSM Pengkalan Chepa</p>
+                    <p>IG: @pctroopers</p>
+                </div>
+            </div>
+            <div class="team-card fade-in">
+                <div class="team-logo">
+                    <img src="assets/LOGOFARIS.png" alt="Team Logo">
+                </div>
+                <div class="team-info">
+                    <h3>KUCHALANA FC</h3>
+                    <p>SMSTM Faris Petra</p>
+                    <p>IG: @kuchalana_fc</p>
+                </div>
+            </div>
+            <div class="team-card fade-in delay-1">
+                <div class="team-logo">
+                    <img src="assets/.png" alt="">
+                </div>
+                <div class="team-info">
+                    <h3>TBA</h3>
+                    <p>TBA</p>
+                    <p>IG: @</p>
+                </div>
+            </div>
+            <div class="team-card fade-in delay-2">
+                <div class="team-logo">
+                    <img src="assets/.png" alt="">
+                </div>
+                <div class="team-info">
+                    <h3>TBA</h3>
+                    <p>TBA</p>
+                    <p>IG: @</p>
+                </div>
+            </div>
+            <div class="team-card fade-in delay-3">
+                <div class="team-logo">
+                    <img src="assets/.png" alt="">
+                </div>
+                <div class="team-info">
+                    <h3>TBA</h3>
+                    <p>TBA</p>
+                    <p>IG: @</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-Supported by the Selangor State Government through Y.B. Mohd Najwan bin Halimi, Exco for Youth, Sports, and Entrepreneurship, the tournament is expected to attract hundreds of participants and thousands of spectators, including alumni and the local community. With participation exclusive to 2005-born alumni, this event also provides a unique opportunity for sponsors to engage with ambitious and talented youth—the future leaders of Malaysia.  
-
-SASEROBA, established on October 11, 2016, has united nearly 1,000 SASER alumni, making it a prestigious platform for networking, sports, and leadership development. Through this tournament, we aim to promote a healthy lifestyle, foster sportsmanship, and instill positive values that extend beyond the football field.  
-
-Our goal is clear: to establish ‘05 FOOTBALL FIESTA 2025 as an iconic football event that creates a lasting impact on the community while elevating sponsors' brands among sports fans and the youth of Malaysia. 🚀⚽
-                    </p>
-                    <!--<div class="about-btn">
-                        <button class="btn">Download Tentative<i class="uil uil-import"></i></button>
+    <!-- Committee Section -->
+    <section id="committee" class="committee">
+        <div class="section-title">
+            <h2>Organizing Committee</h2>
+        </div>
+        <div class="committee-container">
+            <div class="member-card fade-in">
+                <div class="member-image">
+                    <img src="assets/YB.png" alt="Committee Member">
+                </div>
+                <div class="member-info">
+                    <h3>Y.B. Tuan Mohd Najwan bin Halimi</h3>
+                    <p>EXCO Belia, Sukan dan Keusahawanan</p>
+                    <!--<div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fas fa-envelope"></i></a>
                     </div>-->
                 </div>
             </div>
-            <div class="col">
-                <div class="skills-box">
-                    <div class="skills-header">
-                        <h3>Organised by:</h3>
-                    </div>
-                    <div class="skills-list">
-                        <span><img src="assets/LOGO2.png" alt="avatar"></span>
-                        <span><img src="assets/LOGO3.png" alt="avatar"></span>
-                    </div>
+            <div class="member-card fade-in delay-1">
+                <div class="member-image">
+                    <img src="assets/LOAD.png" alt="Committee Member">
                 </div>
-                <div class="skills-box">
-                    <div class="skills-header">
-                        <h3>Strategic Partner:</h3>
-                    </div>
-                    <div class="skills-list">
-                        
-                    </div>
-                </div>
-                <div class="skills-box">
-                    <div class="skills-header">
-                        <h3>Premium Sponsors:</h3>
-                    </div>
-                    <div class="skills-list">
-                        
-                    </div>
-                </div>
-		<div class="skills-box">
-                    <div class="skills-header">
-                        <h3>Supported by:</h3>
-                    </div>
-                    <div class="skills-list">
-                        <span><img src="assets/JATASELANGOR.gif" alt="avatar"></span>
-                    </div>
+                <div class="member-info">
+                    <h3>Mr. Amir Kamal Hamidon</h3>
+                    <p>Strategic Tournament Advisor</p>
+                    <!--<div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fas fa-envelope"></i></a>
+                    </div>-->
                 </div>
             </div>
-          </div>
-       </section>
-
-       <!-- ----------------- TEAMS ------------------- -->
-	<section class="teams-section" id="teams">
-            <div class="top-header">
-              <h1>Participating Teams</h1>
-          </div>
-            <div class="teams">
-                <!-- Team List -->
-                <div class="team"><img src="assets/LOGON.png" alt="Logo"><h3>PABLO FC</h3><p>MRSM - Felda Trolak</p></div>
-                <div class="team"><img src="assets/LOGOK.jpg" alt="Logo"><h3>MAGNUS FT</h3><p>SUPERB - SMAP Bentong</p></div>
-                <div class="team"><img src="assets/LOGOJ.jpg" alt="Logo"><h3>LXII BROS</h3><p>STAR - Sekolah Tuanku Abdul Rahman</p></div>
-                <div class="team"><img src="assets/LOGOH.PNG" alt="Logo"><h3>INFORTAL FC</h3><p>IGOP - SBPI Gopeng</p></div>
-                <div class="team"><img src="assets/LOGOAZ.png" alt="Logo"><h3>FORTESS FC</h3><p>STJ - SMS Tuanku Jaafar</p></div>
-		<div class="team"><img src="assets/LOGOX.png" alt="Logo"><h3>ARCEUSS FC</h3><p>KISAS - Kolej Islam Sultan Alam Shah</p></div>
-		<div class="team"><img src="assets/LOGOP.jpg" alt="Logo"><h3>SAPPHIRE FT</h3><p>MRSM - Gemencheh</p></div>
-		<div class="team"><img src="assets/LOGOE.jpg" alt="Logo"><h3>MARSHALS FC</h3><p>SAS - Sekolah Sultan Alam Shah</p></div>
-		<div class="team"><img src="assets/LOGOZ.png" alt="Logo"><h3>LEGACY FC</h3><p>SEMASHUR - SMS Hulu Selangor</p></div>
-		<div class="team"><img src="assets/LOGOD.jpg" alt="Logo"><h3>REVO FC</h3><p>SDAR - Sekolah Dato' Abdul Razak</p></div>
-		<div class="team"><img src="assets/" alt="Logo"><h3>#</h3><p>MRSM - Kuala Terengganu</p></div>
-		<div class="team"><img src="assets/LOGOO1.png" alt="Logo"><h3>KK OLD BOYS FC</h3><p>MRSM - Kuala Klawang</p></div>
-		<div class="team"><img src="assets/LOGOL1.png" alt="Logo"><h3>PC NATION</h3><p>MRSM - Pengkalan Chepa</p></div>
-		<div class="team"><img src="assets/LOGOF1.png" alt="Logo"><h3>KUCHALANA FC</h3><p>FARIS - SMS Tengku Muhammad Faris Petra</p></div>
-		<div class="team"><img src="assets/" alt="Logo"><h3>#</h3><p>SMAPK - SMAP Kajang</p></div>
-            </div>
-        </section>
-
-       <!-- -------------- PROJECT BOX ---------------- -->
-
-       <section class="section" id="projects">
-          <div class="top-header">
-              <h1>Tournament Committee</h1>
-          </div>
-          <div class="project-container">
-            <!--<div class="project-box">-->
-		<!--<img src="assets/YB.png" alt="avatar">-->
-                <!--<i class="uil uil-briefcase-alt"></i>-->
-                <!--<h3>Y.B. Tuan Mohd Najwan bin Halimi</h3>-->
-                <!--<label>Exco of Youth, Sports, and Enterpreneurship Selangor State</label>-->
-            <!--</div>-->
-            <div class="project-box">
-                <img src="assets/LOAD.png" alt="avatar">
-                <!--<i class="uil uil-briefcase-alt"></i>-->
-                <h3>En. Amir bin Kamal Hamidon</h3>
-                <label>Championship Advisor</label>
-            </div>
-            <div class="project-box">
-                <img src="assets/TOPEX.png" alt="avatar">
-                <!--<i class="uil uil-briefcase-alt"></i>-->
-                <h3>En. Muhammad Taufiq bin Rosdan</h3>
-                <label>Championship Director</label>
-            </div>
-	    <div class="project-box">
-		<img src="assets/ACAP.png" alt="SOON">
-                <!--<i class="uil uil-briefcase-alt"></i>-->
-                <h3>Muhammad Ashraf Rafael bin Rezal</h3>
-                <label>Special Task</label>
-            </div>
-            <div class="project-box">
-                <img src="assets/SYAMEL.png" alt="avatar">
-                <!--<i class="uil uil-briefcase-alt"></i>-->
-                <h3>En. Syamil Amirul bin Muhammad</h3>
-                <label>Secretariat and Technical</label>
-            </div>
-            <div class="project-box">
-                <img src="assets/ANDRE.png" alt="avatar">
-                <!--<i class="uil uil-briefcase-alt"></i>-->
-                <h3>En. Adam Amsyar Shahmie bin Syafizan</h3>
-                <label>Secretariat and Technical</label>
-            </div>
-	    <div class="project-box">
-		<img src="assets/APIZ.png" alt="avatar">
-                <!--<i class="uil uil-briefcase-alt"></i>-->
-                <h3>En. Muhammad Ammar Hafiz bin Md Yazid</h3>
-                <label>Multimedia and Publicity</label>
-            </div>
-            <div class="project-box">
-                <img src="assets/AISH.png" alt="avatar">
-                <!--<i class="uil uil-briefcase-alt"></i>-->
-                <h3>En. Muhammad Farish Rafael bin Rezal</h3>
-                <label>Multimedia and Publicity</label>
-            </div>
-            <div class="project-box">
-                <img src="assets/FARED.png" alt="avatar">
-                <!--<i class="uil uil-briefcase-alt"></i>-->
-                <h3>En. Farid Aiman bin Zanuar</h3>
-                <label>Logistics and Protocol</label>
-            </div>
-	    <div class="project-box">
-		<img src="assets/FARISH.png" alt="SOON">
-                <!--<i class="uil uil-briefcase-alt"></i>-->
-                <h3>Adam Farish bin Mohd Nizam</h3>
-                <label>Liaison Officer-1</label>
-            </div>
-          </div>
-       </section>
-
-       <!-- -------------- CONTACT BOX ---------------- -->
-
-       <section class="section" id="contact">
-          <div class="top-header">
-            <h1>Say HELLO to us</h1>
-            <span>Want to join or learn more about our tournament? Contact us here!</span>
-          </div>
-          <div class="row">
-             <div class="col">
-                <div class="contact-info">
-                    <h2>Find Me <i class="uil uil-corner-right-down"></i></h2>
-                    <p><i class="uil uil-envelope"></i> Email: xanthronsofficial20@gmail.com</p>
-                    <p><i class="uil uil-phone"></i> Tel: +60 13 629 0527</p>
+            <div class="member-card fade-in delay-2">
+                <div class="member-image">
+                    <img src="assets/MOHSIN.png" alt="Committee Member">
                 </div>
-             </div>
-             <div class="col">
-                <div class="form-control">
-		    <div class="form-inputs">
-                        <input type="text" class="input-field" placeholder="Name">
-                        <input type="text" class="input-field" placeholder="Phone number">
-                    </div>
-                    <div class="text-area">
-                        <textarea placeholder="Message"></textarea>
-                    </div>
-                    <div class="form-button">
-                        <button class="btn">Send <i class="uil uil-message"></i></button>
-                    </div>
-		    <p id="responseMessage" style="display:none; color:green;">Thank you for your message.</p>
+                <div class="member-info">
+                    <h3>Mr. Mukhsin Al-Hakeem Zuhdi Lokman</h3>
+                    <p>Tournament Operations Advisor</p>
+                    <!--<div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fas fa-envelope"></i></a>
+                    </div>-->
                 </div>
-             </div>
-          </div>
-       </section>
+            </div>
+            <div class="member-card fade-in delay-3">
+                <div class="member-image">
+                    <img src="assets/TOPEX.png" alt="Committee Member" style="vertical-align: top">
+                </div>
+                <div class="member-info">
+                    <h3>Muhammad Taufiq Rosdan</h3>
+                    <p>Tournament Director</p>
+                    <!--<div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fas fa-envelope"></i></a>
+                    </div>-->
+                </div>
+            </div>
+	    <div class="member-card fade-in">
+                <div class="member-image">
+                    <img src="assets/ACAP.png" alt="Committee Member">
+                </div>
+                <div class="member-info">
+                    <h3>Muhammad Ashraf Rafael Rezal</h3>
+                    <p>Technical Officer</p>
+                    <!--<div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fas fa-envelope"></i></a>
+                    </div>-->
+                </div>
+            </div>
+            <div class="member-card fade-in delay-1">
+                <div class="member-image">
+                    <img src="assets/APIZ.png" alt="Committee Member">
+                </div>
+                <div class="member-info">
+                    <h3>Muhammad Ammar Hafiz Md Yazid</h3>
+                    <p>Media & Publicity Officer</p>
+                    <!--<div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fas fa-envelope"></i></a>
+                    </div>-->
+                </div>
+            </div>
+            <div class="member-card fade-in delay-2">
+                <div class="member-image">
+                    <img src="assets/SYAMEL.png" alt="Committee Member">
+                </div>
+                <div class="member-info">
+                    <h3>Syamil Amirul Muhammad</h3>
+                    <p>Logistics Officer</p>
+                    <!--<div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fas fa-envelope"></i></a>
+                    </div>-->
+                </div>
+            </div>
+            <div class="member-card fade-in delay-3">
+                <div class="member-image">
+                    <img src="assets/FARED.png" alt="Committee Member" style="vertical-align: top">
+                </div>
+                <div class="member-info">
+                    <h3>Farid Aiman Zanuar</h3>
+                    <p>Safety & Sustainability Officer</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    </main>
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="section-title">
+            <h2>Contact Us</h2>
+        </div>
+        <div class="contact-container">
+            <div class="contact-info">
+                <div class="contact-item fade-in">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="contact-text">
+                        <h3>Address</h3>
+                        <p>No 17, Jalan Puchong Batu 6/14, 58200 Wilayah Persekutuan Kuala Lumpur</p>
+                    </div>
+                </div>
+                <div class="contact-item fade-in delay-1">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <div class="contact-text">
+                        <h3>Phone</h3>
+                        <p><a href="tel:+601161225464">+60 11-61225464</a></p>
+                    </div>
+                </div>
+                <div class="contact-item fade-in delay-2">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="contact-text">
+                        <h3>Email</h3>
+                        <p><a href="mailto:xanthronsofficial20@gmail.com">xanthronsofficial20@gmail.com</a></p>
+                    </div>
+                </div>
+                <div class="contact-item fade-in delay-3">
+                    <div class="contact-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="contact-text">
+                        <h3>Office Hours</h3>
+                        <p>Monday - Friday: 9:00 AM - 5:00 PM<br>Saturday: 9:00 AM - 12:00 PM</p>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-form fade-in delay-2">
+                <form id="helloForm">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" class="form-control" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
 
-
-    <!-- --------------- FOOTER --------------- -->
+    <!-- Footer -->
     <footer>
-        <div class="top-footer">
-            <p>'O5 FOOTBALL FIESTA 2025</p>
+        <div class="footer-content">
+            <div class="footer-about">
+                <div class="footer-logo">
+                    <i class="fas fa-futbol"></i>
+                    <span>'05 FIESTA</span>
+                </div>
+                <p>The '05 FIESTA is the premier football tournament in the region, bringing together the best teams and players for an unforgettable competition.</p>
+                <div class="social-links-footer">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#about">About Tournament</a></li>
+                    <li><a href="#teams">Teams</a></li>
+                    <li><a href="#schedule">Schedule</a></li>
+                    <!--<li><a href="#tickets">Tickets</a></li>-->
+                    <li><a href="#news">News & Updates</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h3>Contact Info</h3>
+                <p><i class="fas fa-map-marker-alt"></i> No 17, Jalan Puchong Batu 6/14, 58200 Wilayah Persekutuan Kuala Lumpur</p>
+                <p><i class="fas fa-phone-alt"></i> +60 11-61225464</p>
+                <p><i class="fas fa-envelope"></i> xanthronsofficial20@gmail.com</p>
+            </div>
         </div>
-        <div class="middle-footer">
-            <ul class="footer-menu">
-                <li class="footer_menu_list">
-                    <a href="#home">Home</a>
-                </li>
-                <li class="footer_menu_list">
-                    <a href="#about">Overview</a>
-                </li>
-                <li class="footer_menu_list">
-                    <a href="#teams">Teams</a>
-                </li>
-                <li class="footer_menu_list">
-                    <a href="#projects">Committee</a>
-                </li>
-		<li class="footer_menu_list">
-                    <a href="#contact">HELLO</a>
-                </li>
-            </ul>
-        </div>
-        <div class="footer-social-icons">
-            <div class="icon"><i class="uil uil-instagram"></i></div>
-            <div class="icon"><i class="uil uil-facebook"></i></div>
-            <div class="icon"><i class="uil uil-youtube"></i></div>
-        </div>
-        <div class="bottom-footer">
+        <div class="copyright">
             <p>Copyright &copy; <a href="https://saseroba.org" style="text-decoration: none;">Xanthrons 1822 (SASEROBA)</a> - All rights reserved</p>
         </div>
     </footer>
 
+    <!-- Back to Top Button -->
+    <div class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
     </div>
 
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
 
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navLinks.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
 
+        // Smooth Scrolling for Anchor Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                if (navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                }
 
-    <!-- ----- TYPING JS Link ----- -->
-    <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
 
-       <!-- ----- SCROLL REVEAL JS Link----- -->
-    <script src="https://unpkg.com/scrollreveal"></script>
+        // Back to Top Button
+        const backToTopBtn = document.getElementById('backToTop');
 
-    <!-- ----- MAIN JS ----- -->
-    <script src="main.js"></script>
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopBtn.classList.add('active');
+            } else {
+                backToTopBtn.classList.remove('active');
+            }
+        });
+
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Animation on Scroll
+        const fadeElements = document.querySelectorAll('.fade-in');
+
+        const fadeInOnScroll = () => {
+            fadeElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (elementTop < windowHeight - 100) {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }
+            });
+        };
+
+        window.addEventListener('scroll', fadeInOnScroll);
+        window.addEventListener('load', fadeInOnScroll);
+
+document.addEventListener('DOMContentLoaded', function() {
+        const thumbs = document.querySelectorAll('.thumb');
+        const activeSlide = document.querySelector('.active-slide');
+        const videoElement = activeSlide.querySelector('.slide-video');
+        let currentIndex = 0;
+        let slideshowInterval;
+        let isVideoPlaying = false;
+        let userInteracted = false;
+
+        // Auto-rotate slideshow
+        function startSlideshow() {
+            clearInterval(slideshowInterval);
+            slideshowInterval = setInterval(() => {
+                if (!isVideoPlaying) showNextSlide();
+            }, 3000); // 3s for images
+        }
+
+        function showNextSlide() {
+            currentIndex = (currentIndex + 1) % thumbs.length;
+            updateActiveSlide(thumbs[currentIndex]);
+        }
+
+        function updateActiveSlide(thumb) {
+            thumbs.forEach(t => t.classList.remove('active'));
+            thumb.classList.add('active');
+
+            const type = thumb.dataset.type;
+            const src = thumb.dataset.src;
+            const [title, desc] = thumb.dataset.caption.split('|');
+
+            // Hide both media first
+            activeSlide.querySelector('.slide-image').style.display = 'none';
+            videoElement.style.display = 'none';
+            videoElement.pause();
+
+            if (type === 'image') {
+                // Image transition
+                activeSlide.querySelector('.slide-image').src = src;
+                activeSlide.querySelector('.slide-image').style.display = 'block';
+                isVideoPlaying = false;
+                startSlideshow();
+            } else {
+                // Video handling
+                videoElement.querySelector('source').src = src;
+                videoElement.load();
+                videoElement.style.display = 'block';
+                
+                // Unmute if user has interacted
+                videoElement.muted = !userInteracted;
+                
+                videoElement.play()
+                    .then(() => {
+                        isVideoPlaying = true;
+                        clearInterval(slideshowInterval);
+                    })
+                    .catch(e => {
+                        console.log("Playback failed, falling back to muted");
+                        videoElement.muted = true;
+                        videoElement.play();
+                    });
+            }
+
+            // Update caption
+            activeSlide.querySelector('.slide-caption h3').textContent = title;
+            activeSlide.querySelector('.slide-caption p').textContent = desc;
+        }
+
+        // Video ended handler
+        videoElement.onended = function() {
+            isVideoPlaying = false;
+            showNextSlide();
+        };
+
+        // Manual thumbnail click
+        thumbs.forEach((thumb, index) => {
+            thumb.addEventListener('click', function() {
+                userInteracted = true;
+                clearInterval(slideshowInterval);
+                currentIndex = index;
+                updateActiveSlide(this);
+            });
+        });
+
+        // Initialize first slide
+        updateActiveSlide(thumbs[0]);
+        
+        // Enable interactions
+        document.addEventListener('click', function() {
+            if (!userInteracted) {
+                userInteracted = true;
+                if (videoElement.style.display === 'block') {
+                    videoElement.muted = false;
+                }
+            }
+        }, { once: true });
+    });
+
+document.getElementById("helloForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const message = `
+📢 '05 FIESTA - New Contact Form Submission 📢
+━━━━━━━━━━━━━━━━━
+🏷 Name: ${document.getElementById("name").value}
+📧 Email: ${document.getElementById("email").value}
+🔖 Subject: ${document.getElementById("subject").value}
+📝 Message: 
+${document.getElementById("message").value}
+    `;
+
+    try {
+        // Replace these with your actual credentials
+        const BOT_TOKEN = '7628239798:AAH2q8OVeFOOTVsZAe3UERMnCtYzDvZPXF0';
+        const CHAT_ID = '-4675312732';
+        
+        const response = await fetch(
+            `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent(message)}`
+        );
+
+        const result = await response.json();
+        console.log(result); // Debugging
+        
+        if (result.ok) {
+            alert("Thank you! We will reply you ASAP.");
+            document.getElementById("helloForm").reset();
+        } else {
+            alert(`Failed to send. Error: ${result.description}`);
+        }
+    } catch (error) {
+        console.error("Error:", error);
+        alert("An error occurred. Please try again later.");
+    }
+});
+    </script>
 </body>
 </html>
