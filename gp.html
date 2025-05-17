@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Football League - Schedule & Standings</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px;
+        }
+
+        header {
+            background-color: #1a3e72;
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        h1, h2 {
+            font-size: 1.8rem;
+        }
+
+        h2 {
+            margin: 20px 0 10px;
+            color: #1a3e72;
+            font-size: 1.4rem;
+        }
+
+        .filter-section {
+            background-color: #e9ecef;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+
+        .filter-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .filter-group {
+            flex: 1 1 200px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        select, input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+
+        .btn {
+            background-color: #1a3e72;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .btn:hover {
+            background-color: #0d2b57;
+        }
+
+        /* Schedule Table Styles */
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .schedule-table th {
+            background-color: #1a3e72;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .schedule-table td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .schedule-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .schedule-table tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .match-date {
+            font-weight: bold;
+            background-color: #e9ecef;
+        }
+
+        .team-name {
+            text-align: right;
+            padding-right: 15px !important;
+        }
+
+        .vs {
+            font-weight: bold;
+            color: #1a3e72;
+        }
+
+        .team-name-opponent {
+            text-align: left;
+            padding-left: 15px !important;
+        }
+
+        .score {
+            font-weight: bold;
+            color: #d9534f;
+        }
+
+        .awayName {
+            color: #666;
+            font-size: 0.8rem;
+        }
+
+        .status {
+            font-weight: bold;
+        }
+
+        .completed {
+            color: #5cb85c;
+        }
+
+        .upcoming {
+            color: #f0ad4e;
+        }
+
+        /* Standings Tables */
+        .standings-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .standings-group {
+            flex: 1 1 400px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .standings-title {
+            background-color: #1a3e72;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .standings-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+
+        .standings-table th {
+            background-color: #e9ecef;
+            padding: 8px 5px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .standings-table td {
+            padding: 8px 5px;
+            border-bottom: 1px solid #ddd;
+            text-align: center;
+        }
+
+        .standings-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .team-cell {
+            text-align: left !important;
+            padding-left: 10px !important;
+        }
+
+        .highlight {
+            background-color: #e6f7ff;
+            font-weight: bold;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .pagination a {
+            color: #1a3e72;
+            padding: 8px 16px;
+            text-decoration: none;
+            border: 1px solid #ddd;
+            margin: 0 4px;
+        }
+
+        .pagination a.active {
+            background-color: #1a3e72;
+            color: white;
+            border: 1px solid #1a3e72;
+        }
+
+        .pagination a:hover:not(.active) {
+            background-color: #ddd;
+        }
+
+        @media (max-width: 100px) {
+            .schedule-table, .standings-table {
+                display: block;
+                overflow-x: auto;
+            }
+            
+            .filter-group {
+                flex: 1 1 100%;
+            }
+            
+            .schedule-table th, 
+            .schedule-table td,
+            .standings-table th,
+            .standings-table td {
+                padding: 8px 5px;
+                font-size: 0.8rem;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .standings-table {
+              	font-size: 0.8rem;
+	    }
+
+            .schedule-table {
+                font-size: 0.5rem;
+		display: block;
+                overflow-x: auto;
+            }
+            
+            .team-name, .team-name-opponent {
+    display: inline-block;
+    max-width: 80px;
+    vertical-align: middle;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+            
+            .btn {
+                width: 100%;
+                margin-top: 5px;
+            }
+
+            .standings-group {
+                flex: 1 1 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>FOOTBALL LEAGUE - SCHEDULE & STANDINGS</h1>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Standings Section -->
+        <h2>LEAGUE STANDINGS</h2>
+        <div class="standings-container" id="standings-container">
+            <!-- Groups will be populated by JavaScript -->
+        </div>
+
+        <!-- Schedule Section -->
+        <h2>MATCH SCHEDULE & RESULTS</h2>
+        <table class="schedule-table" id="schedule-table">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Home</th>
+                    <th>Score</th>
+		    <th>Away</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody id="schedule-body">
+                <!-- Matches will be populated by JavaScript -->
+            </tbody>
+        </table>
+
+        <div class="pagination">
+            <a href="">&laquo;</a>
+            <a href="gp.html" class="active">GROUPING</a>
+            <a href="index.html">HOME</a>
+            <a href="ko.html">NEXT STAGE</a>
+            <a href="">&raquo;</a>
+        </div>
+    </div>
+
+    <script>
+        // League Data with A1, A2, B1 naming convention
+        const leagueData = {
+            groups: [
+                {
+                    name: "Group A",
+                    teams: [
+                        { id: "A1", name: "LXII BROS", shortName: "LXII" },
+                        { id: "A2", name: "KUCHALANA FC", shortName: "KCLN" },
+                        { id: "A3", name: "SAPPHIRE FT", shortName: "SPHFT" },
+                        { id: "A4", name: "PC TROOPERS", shortName: "PCT FC" }
+                    ]
+                },
+                {
+                    name: "Group B",
+                    teams: [
+                        { id: "B1", name: "FORTESS FC", shortName: "FRTS" },
+                        { id: "B2", name: "MAESTROS XI", shortName: "MSX FC" },
+                        { id: "B3", name: "ARCEUSS FC", shortName: "ARCS" },
+                        { id: "B4", name: "ASAS MARSHALS FC", shortName: "MRSHL" }
+                    ]
+                },
+                {
+                    name: "Group C",
+                    teams: [
+                        { id: "C1", name: "XANTHRONS FC", shortName: "XX FC" },
+                        { id: "C2", name: "INFORTAL FC", shortName: "INF" },
+                        { id: "C3", name: "PABLO FC", shortName: "PABLO" },
+                        { id: "C4", name: "STRINEX XII", shortName: "STX" }
+                    ]
+                },
+                {
+                    name: "Group D",
+                    teams: [
+                        { id: "D1", name: "MAKAKA FC", shortName: "MKAFC" },
+                        { id: "D2", name: "LEGACY FC", shortName: "LFC" },
+                        { id: "D3", name: "MAGNUS FT", shortName: "MAGFT" },
+                        { id: "D4", name: "KK OLD BOYS FC", shortName: "KKOB" }
+                    ]
+                }
+            ],
+            matches: [
+                // Group A matches
+                //{ date: "2025-05-24", time: "15:00", home: "A1", homeScore: 1, awayScore: 0, away: "A2", status: "completed" },
+
+		{ date: "2025-05-24", time: "08:00", home: "A1", homeScore: 1, awayScore: 0, away: "A2", status: "completed" },
+                { date: "2025-05-24", time: "10:28", home: "A3", away: "A4", status: "upcoming" },
+                { date: "2025-05-24", time: "12:56", home: "A1", away: "A3", status: "upcoming" },
+                { date: "2025-05-24", time: "15:24", home: "A2", away: "A4", status: "upcoming" },
+                { date: "2025-05-24", time: "17:52", home: "A1", away: "A4", status: "upcoming" },
+                { date: "2025-05-24", time: "20:20", home: "A3", away: "A2", status: "upcoming" },
+                
+                // Group B matches
+                { date: "2025-05-24", time: "08:37", home: "B1", away: "B2", status: "upcoming" },
+                { date: "2025-05-24", time: "11:05", home: "B3", away: "B4", status: "upcoming" },
+                { date: "2025-05-24", time: "13:33", home: "B1", away: "B3", status: "upcoming" },
+                { date: "2025-05-24", time: "16:01", home: "B2", away: "B4", status: "upcoming" },
+                { date: "2025-05-24", time: "18:29", home: "B1", away: "B4", status: "upcoming" },
+                { date: "2025-05-24", time: "20:57", home: "B3", away: "B2", status: "upcoming" },
+                
+                // Group C matches
+                { date: "2025-05-24", time: "09:14", home: "C1", away: "C2", status: "upcoming" },
+                { date: "2025-05-24", time: "11:42", home: "C3", away: "C4", status: "upcoming" },
+                { date: "2025-05-24", time: "14:10", home: "C1", away: "C3", status: "upcoming" },
+                { date: "2025-05-24", time: "16:38", home: "C2", away: "C4", status: "upcoming" },
+                { date: "2025-05-24", time: "19:06", home: "C1", homeScore: 9, awayScore: 0, away: "C4", status: "completed" },
+                { date: "2025-05-25", time: "08:00", home: "C3", away: "C2", status: "upcoming" },
+                
+                // Group D matches
+                { date: "2025-05-24", time: "09:51", home: "D1", away: "D2", status: "upcoming" },
+                { date: "2025-05-24", time: "12:19", home: "D3", away: "D4", status: "upcoming" },
+                { date: "2025-05-24", time: "14:47", home: "D1", away: "D3", status: "upcoming" },
+                { date: "2025-05-24", time: "17:15", home: "D2", away: "D4", status: "upcoming" },
+                { date: "2025-05-24", time: "19:43", home: "D1", away: "D4", status: "upcoming" },
+                { date: "2025-05-25", time: "08:37", home: "D3", away: "D2", status: "upcoming" },
+            ]
+        };
+
+        // Initialize standings data for each team
+        function initializeStandings() {
+            const standings = {};
+            
+            leagueData.groups.forEach(group => {
+                group.teams.forEach(team => {
+                    standings[team.id] = {
+                        id: team.id,
+                        name: team.name,
+                        shortName: team.shortName,
+                        group: group.name,
+                        played: 0,
+                        wins: 0,
+                        draws: 0,
+                        losses: 0,
+                        goalsFor: 0,
+                        goalsAgainst: 0,
+                        points: 0
+                    };
+                });
+            });
+            
+            return standings;
+        }
+
+        // Calculate standings based on match results
+        function calculateStandings() {
+            const standings = initializeStandings();
+            
+            leagueData.matches.forEach(match => {
+                if (match.status === "completed" && match.homeScore !== undefined && match.awayScore !== undefined) {
+                    const homeTeam = standings[match.home];
+                    const awayTeam = standings[match.away];
+                    
+                    // Update matches played
+                    homeTeam.played++;
+                    awayTeam.played++;
+                    
+                    // Update goals
+                    homeTeam.goalsFor += match.homeScore;
+                    homeTeam.goalsAgainst += match.awayScore;
+                    awayTeam.goalsFor += match.awayScore;
+                    awayTeam.goalsAgainst += match.homeScore;
+                    
+                    // Update points and win/draw/loss
+                    if (match.homeScore > match.awayScore) {
+                        homeTeam.wins++;
+                        homeTeam.points += 3;
+                        awayTeam.losses++;
+                    } else if (match.homeScore < match.awayScore) {
+                        awayTeam.wins++;
+                        awayTeam.points += 3;
+                        homeTeam.losses++;
+                    } else {
+                        homeTeam.draws++;
+                        awayTeam.draws++;
+                        homeTeam.points += 1;
+                        awayTeam.points += 1;
+                    }
+                }
+            });
+            
+            return standings;
+        }
+
+        // Sort teams in a group by points, goal difference, etc.
+        function sortTeams(teams) {
+            return teams.sort((a, b) => {
+                // Sort by points
+                if (b.points !== a.points) {
+                    return b.points - a.points;
+                }
+                
+                // Sort by goal difference
+                const aGD = a.goalsFor - a.goalsAgainst;
+                const bGD = b.goalsFor - b.goalsAgainst;
+                if (bGD !== aGD) {
+                    return bGD - aGD;
+                }
+                
+                // Sort by goals scored
+                if (b.goalsFor !== a.goalsFor) {
+                    return b.goalsFor - a.goalsFor;
+                }
+                
+                // Sort alphabetically as last resort
+                return a.name.localeCompare(b.name);
+            });
+        }
+
+        // Render standings tables
+        function renderStandings() {
+            const standings = calculateStandings();
+            const container = document.getElementById('standings-container');
+            container.innerHTML = '';
+            
+            leagueData.groups.forEach(group => {
+                // Get teams in this group
+                const groupTeams = group.teams.map(team => standings[team.id]);
+                
+                // Sort teams
+                const sortedTeams = sortTeams(groupTeams);
+                
+                // Create standings table
+                const groupElement = document.createElement('div');
+                groupElement.className = 'standings-group';
+                
+                const titleElement = document.createElement('div');
+                titleElement.className = 'standings-title';
+                titleElement.textContent = group.name;
+                groupElement.appendChild(titleElement);
+                
+                const tableElement = document.createElement('table');
+                tableElement.className = 'standings-table';
+                
+                // Create table header
+                const thead = document.createElement('thead');
+                thead.innerHTML = `
+                    <tr>
+                        <th>#</th>
+                        <th>Team</th>
+                        <th>P</th>
+                        <th>W</th>
+                        <th>D</th>
+                        <th>L</th>
+                        <th>GF</th>
+                        <th>GA</th>
+                        <th>GD</th>
+                        <th>Pts</th>
+                    </tr>
+                `;
+                tableElement.appendChild(thead);
+                
+                // Create table body
+                const tbody = document.createElement('tbody');
+                sortedTeams.forEach((team, index) => {
+                    const row = document.createElement('tr');
+                    if (index < 2) {
+                        row.classList.add('highlight'); // Highlight top 2 teams
+                    }
+                    
+                    const gd = team.goalsFor - team.goalsAgainst;
+                    const gdFormatted = gd > 0 ? `+${gd}` : gd;
+                    
+                    row.innerHTML = `
+                        <td>${index + 1}</td>
+                        <td class="team-cell">${team.shortName}</td>
+                        <td>${team.played}</td>
+                        <td>${team.wins}</td>
+                        <td>${team.draws}</td>
+                        <td>${team.losses}</td>
+                        <td>${team.goalsFor}</td>
+                        <td>${team.goalsAgainst}</td>
+                        <td>${gdFormatted}</td>
+                        <td>${team.points}</td>
+                    `;
+                    tbody.appendChild(row);
+                });
+                tableElement.appendChild(tbody);
+                groupElement.appendChild(tableElement);
+                container.appendChild(groupElement);
+            });
+        }
+
+        // Render schedule
+function renderSchedule() {
+    const tbody = document.getElementById('schedule-body');
+    tbody.innerHTML = '';
+    
+    // Create a copy of matches array and sort by date then time
+    const sortedMatches = [...leagueData.matches].sort((a, b) => {
+        // First compare dates
+        const dateComparison = a.date.localeCompare(b.date);
+        if (dateComparison !== 0) return dateComparison;
+        
+        // If dates are equal, compare times
+        return a.time.localeCompare(b.time);
+    });
+    
+    // Group sorted matches by date
+    const matchesByDate = {};
+    sortedMatches.forEach(match => {
+        if (!matchesByDate[match.date]) {
+            matchesByDate[match.date] = [];
+        }
+        matchesByDate[match.date].push(match);
+    });
+    
+    // Sort dates (though they should already be sorted from the previous step)
+    const sortedDates = Object.keys(matchesByDate).sort();
+    
+    // Populate schedule
+    sortedDates.forEach(date => {
+        // Add date header row
+        const dateRow = document.createElement('tr');
+        const formattedDate = new Date(date + 'T00:00:00').toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'numeric', day: 'numeric' });
+        dateRow.className = 'match-date';
+        dateRow.innerHTML = `<td colspan="6">${formattedDate}</td>`;
+        tbody.appendChild(dateRow);
+        
+        // Add matches for this date (already sorted by time)
+        matchesByDate[date].forEach(match => {
+            const homeTeam = leagueData.groups.flatMap(g => g.teams).find(t => t.id === match.home);
+            const awayTeam = leagueData.groups.flatMap(g => g.teams).find(t => t.id === match.away);
+            
+            const row = document.createElement('tr');
+            
+            // Format date (without weekday)
+            const matchDate = new Date(match.date + 'T00:00:00').toLocaleDateString('en-US', { month: 'numeric', day: 'numeric', year: 'numeric' }).replace(/\//g, '/');
+            
+            // Format score or vs
+            let scoreContent = '<span class="vs">vs</span>';
+            if (match.status === 'completed' && match.homeScore !== undefined && match.awayScore !== undefined) {
+                scoreContent = `<span class="score">${match.homeScore} - ${match.awayScore}</span>`;
+            }
+            
+            row.innerHTML = `
+                <td>${matchDate}</td>
+                <td>${match.time}</td>
+                <td><span class="team-name">${homeTeam.shortName}</span></td>
+                <td>${scoreContent}</td>
+                <td class="awayName">${awayTeam.shortName}</td>
+                <td class="status ${match.status}">${match.status === 'completed' ? 'Completed' : 'Upcoming'}</td>
+            `;
+            tbody.appendChild(row);
+        });
+    });
+}
+
+        // Populate team dropdown
+        function populateTeamDropdown() {
+            const select = document.getElementById('team');
+            
+            // Get all unique teams from all groups
+            const allTeams = leagueData.groups.flatMap(group => group.teams);
+            
+            allTeams.forEach(team => {
+                const option = document.createElement('option');
+                option.value = team.id;
+                option.textContent = team.name;
+                select.appendChild(option);
+            });
+        }
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            renderStandings();
+            renderSchedule();
+            populateTeamDropdown();
+            
+            // Add event listener for search button
+            document.getElementById('search-btn').addEventListener('click', function() {
+                // In a real app, this would filter the matches
+                alert('Search functionality would filter matches here');
+            });
+        });
+    </script>
+</body>
+</html>
