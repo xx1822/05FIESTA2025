@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>'05 FIESTA</title>
+    <link rel="shortcut icon" href="assets/LOGOFIESTA.png" type="image/x-icon">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px;
+        }
+
+        header {
+            background-color: #1a3e72;
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        h1, h2 {
+            font-size: 1.8rem;
+        }
+
+        h2 {
+            margin: 20px 0 10px;
+            color: #1a3e72;
+            font-size: 1.4rem;
+        }
+
+        /* Schedule Table Styles */
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .schedule-table th {
+            background-color: #1a3e72;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .schedule-table td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .schedule-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .schedule-table tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .match-date {
+            font-weight: bold;
+            background-color: #e9ecef;
+        }
+
+        .team-name {
+            text-align: right;
+            padding-right: 15px !important;
+        }
+
+        .vs {
+            font-weight: bold;
+            color: #1a3e72;
+        }
+
+        .team-name-opponent {
+            text-align: left;
+            padding-left: 15px !important;
+        }
+
+        .score {
+            font-weight: bold;
+            color: #d9534f;
+        }
+
+        .awayName {
+            color: #666;
+            font-size: 0.8rem;
+        }
+
+        .status {
+            font-weight: bold;
+        }
+
+        .completed {
+            color: #5cb85c;
+        }
+
+        .upcoming {
+            color: #f0ad4e;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .pagination a {
+            color: #1a3e72;
+            padding: 8px 16px;
+            text-decoration: none;
+            border: 1px solid #ddd;
+            margin: 0 4px;
+        }
+
+        .pagination a.active {
+            background-color: #1a3e72;
+            color: white;
+            border: 1px solid #1a3e72;
+        }
+
+        .pagination a:hover:not(.active) {
+            background-color: #ddd;
+        }
+
+        @media (max-width: 480px) {
+            .schedule-table {
+                font-size: 0.5rem;
+                display: block;
+                overflow-x: auto;
+            }
+            
+            .team-name, .team-name-opponent {
+                display: inline-block;
+                max-width: 80px;
+                vertical-align: middle;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>'05 FIESTA - KNOCKOUT STAGE</h1>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Schedule Section -->
+        <h2>MATCH SCHEDULE & RESULTS</h2>
+        <table class="schedule-table" id="schedule-table">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Stage</th>
+                    <th>Time</th>
+                    <th>Home</th>
+                    <th>Score</th>
+                    <th>Away</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody id="schedule-body">
+                <!-- Matches will be populated by JavaScript -->
+            </tbody>
+        </table>
+
+        <div class="pagination">
+            <a href="">&laquo;</a>
+            <a href="gp.html">GROUPING</a>
+            <a href="index.html">HOME</a>
+            <a href="ko.html" class="active">KNOCKOUT</a>
+            <a href="">&raquo;</a>
+        </div>
+    </div>
+
+    <script>
+        // League Data with A1, A2, B1 naming convention
+        const leagueData = {
+            /*groups: [
+                {
+                    name: "Group A",
+                    teams: [
+                        { id: "A1", name: "LXII BROS", shortName: "LXII" },
+                        { id: "A2", name: "KUCHALANA FC", shortName: "KCLN" },
+                        { id: "A3", name: "SAPPHIRE FT", shortName: "SPHFT" },
+                        { id: "A4", name: "PC TROOPERS", shortName: "PCT FC" }
+                    ]
+                },
+                {
+                    name: "Group B",
+                    teams: [
+                        { id: "B1", name: "FORTESS FC", shortName: "FRTS" },
+                        { id: "B2", name: "MAESTROS XI", shortName: "MSX FC" },
+                        { id: "B3", name: "ARCEUSS FC", shortName: "ARCS" },
+                        { id: "B4", name: "ASAS MARSHALS FC", shortName: "MRSHL" }
+                    ]
+                },
+                {
+                    name: "Group C",
+                    teams: [
+                        { id: "C1", name: "XANTHRONS FC", shortName: "XX FC" },
+                        { id: "C2", name: "INFORTAL FC", shortName: "INF" },
+                        { id: "C3", name: "PABLO FC", shortName: "PABLO" },
+                        { id: "C4", name: "STRINEX XII", shortName: "STX" }
+                    ]
+                },
+                {
+                    name: "Group D",
+                    teams: [
+                        { id: "D1", name: "MAKAKA FC", shortName: "MKAFC" },
+                        { id: "D2", name: "LEGACY FC", shortName: "LFC" },
+                        { id: "D3", name: "MAGNUS FT", shortName: "MAGFT" },
+                        { id: "D4", name: "KK OLD BOYS FC", shortName: "KKOB" }
+                    ]
+                }
+            ],*/
+
+	    groups: [
+                {
+                    name: "Group A",
+                    teams: [
+                        { id: "A1", shortName: "(Legend) A" },
+                        { id: "A2", shortName: "(Master) A" },
+                        { id: "A3", shortName: "(Prospect) A" },
+                        { id: "A4", shortName: "(Amateur) A" }
+                    ]
+                },
+                {
+                    name: "Group B",
+                    teams: [
+                        { id: "B1", shortName: "(Legend) B" },
+                        { id: "B2", shortName: "(Master) B" },
+                        { id: "B3", shortName: "(Prospect) B" },
+                        { id: "B4", shortName: "(Amateur) B" }
+                    ]
+                },
+                {
+                    name: "Group C",
+                    teams: [
+                        { id: "C1", shortName: "(Legend) C" },
+                        { id: "C2", shortName: "(Master) C" },
+                        { id: "C3", shortName: "(Prospect) C" },
+                        { id: "C4", shortName: "(Amateur) C" }
+                    ]
+                },
+                {
+                    name: "Group D",
+                    teams: [
+                        { id: "D1", shortName: "(Legend) D" },
+                        { id: "D2", shortName: "(Master) D" },
+                        { id: "D3", shortName: "(Prospect) D" },
+                        { id: "D4", shortName: "(Amateur) D" }
+                    ]
+                },
+		{
+                    name: "Knockout",
+                    teams: [
+                        { id: "LSF1-Legend", shortName: "L SF1-Legend" },
+                        { id: "LSF2-Legend", shortName: "L SF2-Legend" },
+			{ id: "WSF1-Legend", shortName: "W SF1-Legend" },
+                        { id: "WSF2-Legend", shortName: "W SF2-Legend" },
+                        { id: "LSF1-Master", shortName: "L SF1-Master" },
+                        { id: "LSF2-Master", shortName: "L SF2-Master" },
+			{ id: "WSF1-Master", shortName: "W SF1-Master" },
+                        { id: "WSF2-Master", shortName: "W SF2-Master" },
+			{ id: "LSF1-Prospect", shortName: "L SF1-Prospect" },
+                        { id: "LSF2-Prospect", shortName: "L SF2-Prospect" },
+			{ id: "WSF1-Prospect", shortName: "W SF1-Prospect" },
+                        { id: "WSF2-Prospect", shortName: "W SF2-Prospect" },
+			{ id: "LSF1-Amateur", shortName: "L SF1-Amateur" },
+                        { id: "LSF2-Amateur", shortName: "L SF2-Amateur" },
+			{ id: "WSF1-Amateur", shortName: "W SF1-Amateur" },
+                        { id: "WSF2-Amateur", shortName: "W SF2-Amateur" }
+                    ]
+                }
+            ],
+
+            matches: [
+		// homeScore: "0", awayScore: "2",
+                // Legend matches
+                /*7*/{ date: "2025-05-24", time: "12:56", home: "A1", away: "C1", stage: "Semi-Final 1", status: "upcoming" },
+                /*8*/{ date: "2025-05-24", time: "13:33", home: "B1", away: "D1", stage: "Semi-Final 2", status: "upcoming" },
+		/*12*/{ date: "2025-05-24", time: "16:01", home: "LSF1-Legend", away: "LSF2-Legend", stage: "3rd/4th", status: "upcoming" },
+                /*16*/{ date: "2025-05-24", time: "18:29", home: "WSF1-Legend", away: "WSF2-Legend", stage: "GRAND FINAL", status: "upcoming" },
+
+                // Master matches
+                /*5*/{ date: "2025-05-24", time: "11:42", home: "A2", away: "C2", stage: "Semi-Final 1", status: "upcoming" },
+                /*6*/{ date: "2025-05-24", time: "12:19", home: "B2", away: "D2", stage: "Semi-Final 2", status: "upcoming" },
+		/*11*/{ date: "2025-05-24", time: "15:24", home: "LSF1-Master", away: "LSF2-Master", stage: "3rd/4th", status: "upcoming" },
+                /*15*/{ date: "2025-05-24", time: "17:52", home: "WSF1-Master", away: "WSF2-Master", stage: "Final Master", status: "upcoming" },
+                
+                // Prospect matches
+                /*3*/{ date: "2025-05-24", time: "10:28", home: "A3", away: "C3", stage: "Semi-Final 1", status: "upcoming" },
+                /*4*/{ date: "2025-05-24", time: "11:05", home: "B3", away: "D3", stage: "Semi-Final 2", status: "upcoming" },
+		/*10*/{ date: "2025-05-24", time: "14:47", home: "LSF1-Prospect", away: "LSF2-Prospect", stage: "3rd/4th", status: "upcoming" },
+                /*14*/{ date: "2025-05-24", time: "17:15", home: "WSF1-Prospect", away: "WSF2-Prospect", stage: "Final Prospect", status: "upcoming" },
+                
+                // Amateur matches
+                /*1*/{ date: "2025-05-24", time: "09:14", home: "A4", away: "C4", stage: "Semi-Final 1", status: "upcoming" },
+                /*2*/{ date: "2025-05-24", time: "09:51", home: "B4", away: "D4", stage: "Semi-Final 2", status: "upcoming" },
+		/*9*/{ date: "2025-05-24", time: "14:10", home: "LSF1-Amateur", away: "LSF2-Amateur", stage: "3rd/4th", status: "upcoming" },
+		/*13*/{ date: "2025-05-24", time: "16:38", home: "WSF1-Amateur", away: "WSF2-Amateur", stage: "Final Amateur", status: "upcoming" },
+                
+                
+            ]
+        };
+
+        // Render schedule
+        function renderSchedule() {
+            const tbody = document.getElementById('schedule-body');
+            tbody.innerHTML = '';
+            
+            // Create a copy of matches array and sort by date then time
+            const sortedMatches = [...leagueData.matches].sort((a, b) => {
+                // First compare dates
+                const dateComparison = a.date.localeCompare(b.date);
+                if (dateComparison !== 0) return dateComparison;
+                
+                // If dates are equal, compare times
+                return a.time.localeCompare(b.time);
+            });
+            
+            // Group sorted matches by date
+            const matchesByDate = {};
+            sortedMatches.forEach(match => {
+                if (!matchesByDate[match.date]) {
+                    matchesByDate[match.date] = [];
+                }
+                matchesByDate[match.date].push(match);
+            });
+            
+            // Sort dates (though they should already be sorted from the previous step)
+            const sortedDates = Object.keys(matchesByDate).sort();
+            
+            // Populate schedule
+            sortedDates.forEach(date => {
+                // Add date header row
+                const dateRow = document.createElement('tr');
+                const formattedDate = new Date(date + 'T00:00:00').toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'numeric', day: 'numeric' });
+                dateRow.className = 'match-date';
+                dateRow.innerHTML = `<td colspan="7">${formattedDate}</td>`;
+                tbody.appendChild(dateRow);
+                
+                // Add matches for this date (already sorted by time)
+                matchesByDate[date].forEach(match => {
+                    const homeTeam = leagueData.groups.flatMap(g => g.teams).find(t => t.id === match.home);
+                    const awayTeam = leagueData.groups.flatMap(g => g.teams).find(t => t.id === match.away);
+                    
+                    const row = document.createElement('tr');
+                    
+                    // Format date (without weekday)
+                    const matchDate = new Date(match.date + 'T00:00:00').toLocaleDateString('en-US', { month: 'numeric', day: 'numeric', year: 'numeric' }).replace(/\//g, '/');
+                    
+                    // Format score or vs
+                    let scoreContent = '<span class="vs">vs</span>';
+                    if (match.status === 'completed' && match.homeScore !== undefined && match.awayScore !== undefined) {
+                        scoreContent = `<span class="score">${match.homeScore} - ${match.awayScore}</span>`;
+                    }
+                    
+                    row.innerHTML = `
+                        <td>${matchDate}</td>
+                        <td>${match.stage}</td>
+                        <td>${match.time}</td>
+                        <td><span class="team-name">${homeTeam.shortName}</span></td>
+                        <td>${scoreContent}</td>
+                        <td class="awayName">${awayTeam.shortName}</td>
+                        <td class="status ${match.status}">${match.status === 'completed' ? 'Completed' : 'Upcoming'}</td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            });
+        }
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            renderSchedule();
+        });
+    </script>
+</body>
+</html>
