@@ -493,18 +493,18 @@
                     return b.points - a.points;
                 }
                 
-                // Sort by goals scored
-                if (b.goalsFor !== a.goalsFor) {
-                    return b.goalsFor - a.goalsFor;
-                }
-		
 		// Sort by goal difference
                 const aGD = a.goalsFor - a.goalsAgainst;
                 const bGD = b.goalsFor - b.goalsAgainst;
                 if (bGD !== aGD) {
                     return bGD - aGD;
                 }
-                
+		
+                // Sort by goals scored
+                if (b.goalsFor !== a.goalsFor) {
+                    return b.goalsFor - a.goalsFor;
+                }
+		
                 // Sort alphabetically as last resort
                 return a.name.localeCompare(b.name);
             });
