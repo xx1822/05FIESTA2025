@@ -392,7 +392,7 @@
                 { date: "2025-05-24", time: "12:56", home: "A1", homeScore: 0, awayScore: 0, away: "A3", status: "completed" },
                 { date: "2025-05-24", time: "15:24", home: "A2", homeScore: 2, awayScore: 0, away: "A4", status: "completed" },
                 { date: "2025-05-24", time: "17:52", home: "A1", homeScore: 2, awayScore: 4, away: "A4", status: "completed" },
-                { date: "2025-05-24", time: "20:20", home: "A3", away: "A2", status: "upcoming" },
+                { date: "2025-05-24", time: "20:20", home: "A3", homeScore: 3, awayScore: 1, away: "A2", status: "completed" },
                 
                 // Group B matches
                 { date: "2025-05-24", time: "08:37", home: "B1", homeScore: 1, awayScore: 0, away: "B2", status: "completed" },
@@ -400,14 +400,14 @@
                 { date: "2025-05-24", time: "13:33", home: "B1", homeScore: 1, awayScore: 0, away: "B3", status: "completed" },
                 { date: "2025-05-24", time: "16:01", home: "B2", homeScore: 1, awayScore: 0, away: "B4", status: "completed" },
                 { date: "2025-05-24", time: "18:29", home: "B1", homeScore: 0, awayScore: 1, away: "B4", status: "completed" },
-                { date: "2025-05-24", time: "20:57", home: "B3", away: "B2", status: "upcoming" },
+                { date: "2025-05-24", time: "20:57", home: "B3", homeScore: 3, awayScore: 1, away: "B2", status: "completed" },
                 
                 // Group C matches
                 { date: "2025-05-24", time: "09:14", home: "C1", homeScore: 0, awayScore: 0, away: "C2", status: "completed" },
                 { date: "2025-05-24", time: "11:42", home: "C3", homeScore: 0, awayScore: 1, away: "C4", status: "completed" },
                 { date: "2025-05-24", time: "14:10", home: "C1", homeScore: 0, awayScore: 1, away: "C3", status: "completed" },
                 { date: "2025-05-24", time: "16:38", home: "C2", homeScore: 0, awayScore: 1, away: "C4", status: "completed" },
-                { date: "2025-05-24", time: "19:06", home: "C1", away: "C4", status: "upcoming" },
+                { date: "2025-05-24", time: "19:06", home: "C1", homeScore: 2, awayScore: 0, away: "C4", status: "completed" },
                 { date: "2025-05-25", time: "08:00", home: "C3", away: "C2", status: "upcoming" },
                 
                 // Group D matches
@@ -415,7 +415,7 @@
                 { date: "2025-05-24", time: "12:19", home: "D3", homeScore: 0, awayScore: 0, away: "D4", status: "completed" },
                 { date: "2025-05-24", time: "14:47", home: "D1", homeScore: 1, awayScore: 1, away: "D3", status: "completed" },
                 { date: "2025-05-24", time: "17:15", home: "D2", homeScore: 1, awayScore: 2, away: "D4", status: "completed" },
-                { date: "2025-05-24", time: "19:43", home: "D1", away: "D4", status: "upcoming" },
+                { date: "2025-05-24", time: "19:43", home: "D1", homeScore: 0, awayScore: 0, away: "D4", status: "completed" },
                 { date: "2025-05-25", time: "08:37", home: "D3", away: "D2", status: "upcoming" },
             ]
         };
@@ -493,16 +493,16 @@
                     return b.points - a.points;
                 }
                 
-                // Sort by goal difference
+                // Sort by goals scored
+                if (b.goalsFor !== a.goalsFor) {
+                    return b.goalsFor - a.goalsFor;
+                }
+		
+		// Sort by goal difference
                 const aGD = a.goalsFor - a.goalsAgainst;
                 const bGD = b.goalsFor - b.goalsAgainst;
                 if (bGD !== aGD) {
                     return bGD - aGD;
-                }
-                
-                // Sort by goals scored
-                if (b.goalsFor !== a.goalsFor) {
-                    return b.goalsFor - a.goalsFor;
                 }
                 
                 // Sort alphabetically as last resort
